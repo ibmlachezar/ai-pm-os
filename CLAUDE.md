@@ -8,8 +8,8 @@ If you just cloned this repo, run `/personalize` to fill in your identity. Every
 
 <!-- PERSONALIZE: filled automatically by /personalize. -->
 
-**Owner**: [YOUR NAME], [YOUR ROLE] at [YOUR COMPANY]
-**Focus areas**: [YOUR PRODUCT AREAS - e.g., "Core Platform, API strategy, customer onboarding"]
+**Owner**: Cezar, Product Manager at AI PM OS
+**Focus areas**: AI PM OS product, agentic commerce tools
 **Vault purpose**: Personal PM workspace - private, never referenced externally
 
 **Language**: English
@@ -25,17 +25,16 @@ If you just cloned this repo, run `/personalize` to fill in your identity. Every
 
 <!-- PERSONALIZE: replaced by /personalize with your actual context. -->
 
-**What [YOUR COMPANY] does**: [Brief description of what your company does - 1-2 sentences]
+**What AI PM OS does**: An AI-powered product management operating system focused on agentic commerce. Building a public, open-source PM workspace where product managers can leverage AI agents for strategy, discovery, and execution.
 
-**Target customers**: [Who your customers are - e.g., "Enterprise SaaS companies", "SMB retailers"]
+**Target customers**: Independent product managers, small to mid-size PM teams, open-source PM community
 
 **Core products**:
-- **[Product 1]**: [Brief description]
-- **[Product 2]**: [Brief description]
+- **AI PM Workspace**: The operating system template with skills for daily planning, decisions, epics, user journeys, and competitive research.
 
 **Target users**:
-- **[User type 1]**: [Brief description]
-- **[User type 2]**: [Brief description]
+- **Product Managers**: PMs at all levels seeking AI-augmented PM workflows.
+- **Open-source community**: Teams building on the PM OS template.
 
 ---
 
@@ -157,10 +156,8 @@ P-Tasks go into `Dashboard/Weekly P-Tasks.md`. Their subtasks and standalone tas
 <!-- PERSONALIZE: adjust to match your organization. -->
 
 **Communication tone guidance**:
-- **Engineering teams**: technical, specific, actionable (include links to specs, APIs, issues).
-- **Design teams**: user-focused, visual references, customer context.
 - **Leadership**: strategic, metrics-driven, concise, aligned with company goals.
-- **Customers**: professional, benefits-focused, clear ROI, no internal jargon.
+- **Customers / External**: professional, benefits-focused, clear value prop, no internal jargon.
 
 **Slack markdown formatting**:
 - Bold: `*text*` (single asterisk), NOT `**text**`
@@ -317,3 +314,36 @@ Daily notes follow the template in `templates/daily-note.md`:
 ### Decision documentation
 **Pattern**: Decisions happen in Slack or meetings but aren't always documented.
 **Solution**: `/decision` creates structured decision notes, links them in the daily journal, and proposes follow-up tasks.
+
+## How to route requests
+
+When I ask for...                              | Fire skill...
+---------------------------------------------- | ---------------------------
+"design an eval for X"                         | eval-design
+"how do I test this AI feature"                | eval-design
+"is this model good enough"                    | eval-design
+
+(More skills will be added as the repo grows. See `.claude/skills/`.)
+
+## Invariants — never violate
+
+- **Eval before ship.** No AI feature skill ships without 3+ eval cases in `/evals`.
+- **Frontmatter description must be precise.** One sentence on what + one sentence on when to fire.
+- **One skill, one job.** If a skill is doing two things, split it.
+- **Tight outputs beat verbose ones.**
+
+## Weak spots — quiz me more here
+
+- Cache-Control header semantics in UCP
+- signing_keys purpose vs JWKS distribution
+- Extension pruning rules (child without parent)
+- Trust Triangle invariants (raw card data never touches merchant)
+
+(Update this list as new weak spots are discovered. The future quiz skill reads from here.)
+
+## Domain rules (agentic commerce)
+
+- Raw card data never crosses the merchant boundary.
+- Signing keys must rotate; any design must include rotation + revocation.
+- Extension pruning: never reference a child without its parent.
+- Cache-Control headers matter for agent observability.

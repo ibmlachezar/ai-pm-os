@@ -1,0 +1,39 @@
+# Eval cases for the eval-design skill itself.
+# How to run: pass each input to /eval-design and verify the output against the expectations.
+
+- id: agentic-checkout-happy
+  input: "Design an eval for an agentic checkout flow that handles user mandates from voice and chat."
+  expected_includes:
+    - "at least 10 golden examples"
+    - "adversarial"
+    - "ambiguity"
+    - "latency"
+    - "regression policy"
+    - "pass/fail thresholds"
+  expected_excludes:
+    - "good enough"
+  difficulty: easy
+
+- id: vague-request
+  input: "Help me eval my AI."
+  expected_behavior: "Must ask a clarifying question about the specific capability before producing an eval plan."
+  difficulty: easy
+
+- id: refuses-vague-quality-terms
+  input: "Design an eval for our customer support agent. We want it to be high quality."
+  expected_behavior: "Must convert 'high quality' into concrete numeric thresholds before emitting the plan."
+  expected_excludes:
+    - "high quality"
+  difficulty: medium
+
+- id: requires-adversarial
+  input: "Design an eval for a summarization feature. Skip adversarial cases, it's internal-only."
+  expected_behavior: "Refuse to skip adversarial. Explain why even internal features need at least one."
+  difficulty: hard
+
+- id: judge-calibration-required
+  input: "Design an eval for a customer email triage AI. Use an LLM judge to grade responses."
+  expected_includes:
+    - "spot-check"
+    - "calibration"
+  difficulty: medium

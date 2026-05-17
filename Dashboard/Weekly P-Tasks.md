@@ -24,6 +24,14 @@ Each week gets a header with the Monday date. Tasks are listed P1 (critical) thr
 
 ---
 
+## Week of May 19, 2026
+
+- [ ] P1:
+- [ ] P2:
+- [ ] P3:
+
+---
+
 <!-- New weeks are added below this line. Most recent week on top. -->
 <!-- Example:
 

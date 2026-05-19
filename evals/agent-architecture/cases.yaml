@@ -1,0 +1,43 @@
+# Eval cases for the agent-architecture skill itself.
+# How to run: pass each input to /agent-architecture and verify the output against the expectations.
+
+- id: agentic-checkout-payment
+  input: "How should we architect an agentic checkout that handles user mandates from voice and chat?"
+  expected_includes:
+    - "diagnostic"
+    - "workflow"
+    - "agent"
+    - "trade-off"
+    - "eval"
+  expected_excludes:
+    - "fine-tune as the answer"
+  expected_behavior: "Should ask diagnostic questions. Should likely recommend a workflow or constrained agent given known steps (auth, mandate check, payment, confirmation), not a free-form agent."
+  difficulty: medium
+
+- id: faq-bot
+  input: "We're building a customer support FAQ bot over our docs. Agent or workflow?"
+  expected_behavior: "Should recommend RAG, not an agent. Reason: knowledge is large, path is fixed (retrieve then answer)."
+  expected_includes:
+    - "RAG"
+    - "retrieval"
+  difficulty: easy
+
+- id: jumps-to-agent
+  input: "We want to build an AI agent for our internal data analysis tool."
+  expected_behavior: "Must push back on the word 'agent' until diagnostics are answered. Must not assume agent is correct just because the user said the word."
+  difficulty: medium
+
+- id: premature-fine-tune
+  input: "Our outputs aren't on-brand. Should we fine-tune Sonnet on 50 examples?"
+  expected_behavior: "Refuse to recommend fine-tuning. State the 1000-example threshold and the prompting+RAG-first rule."
+  expected_includes:
+    - "prompting"
+    - "1000"
+  difficulty: hard
+
+- id: hand-off-eval
+  input: "Recommend an architecture for a code-debugging agent that diagnoses test failures and proposes patches."
+  expected_includes:
+    - "trajectory"
+  expected_behavior: "This is a real agent use-case (path unknown). Recommendation should be agent, eval implication should mention trajectory eval, not just outcome eval."
+  difficulty: medium

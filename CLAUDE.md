@@ -322,6 +322,10 @@ When I ask for...                              | Fire skill...
 "design an eval for X"                         | eval-design
 "how do I test this AI feature"                | eval-design
 "is this model good enough"                    | eval-design
+"agent or workflow"                            | agent-architecture
+"agent vs RAG"                                 | agent-architecture
+"how should we architect this"                 | agent-architecture
+"do we need to fine-tune"                      | agent-architecture
 
 (More skills will be added as the repo grows. See `.claude/skills/`.)
 

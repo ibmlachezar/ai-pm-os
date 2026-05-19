@@ -1,0 +1,40 @@
+# Eval cases for the model-selection skill itself.
+# How to run: pass each input to /model-selection and verify the output against the expectations.
+
+- id: voice-intent-classifier
+  input: "Pick a model for classifying voice utterances into 12 checkout intents (e.g. add_item, confirm_mandate, cancel). Volume: 50k requests/day. p95 latency budget: 300ms."
+  expected_behavior: "Should recommend a small-tier model (Haiku 4.5 or Gemini Flash Lite). Should rule out frontier on cost and latency. May propose a cascade for low-confidence cases."
+  expected_includes:
+    - "Haiku"
+    - "latency"
+    - "cost"
+  difficulty: easy
+
+- id: complex-research-agent
+  input: "Pick a model for a research agent that reads 50-page documents, makes 10+ tool calls, and synthesizes a report. Latency budget: 60s. Volume: 200 requests/day."
+  expected_behavior: "Should recommend frontier-tier (Opus 4.7, GPT-5, or Gemini 2.5 Pro). Should justify on multi-step reasoning + tool-use reliability + context size."
+  expected_includes:
+    - "Opus"
+    - "context"
+    - "tool"
+  difficulty: easy
+
+- id: mixed-traffic-cascade
+  input: "Pick a model for customer support replies. 80% are routine FAQ answers, 20% need real reasoning about edge cases. Budget: $5k/month, volume: 100k/month."
+  expected_behavior: "Must propose a cascade: small/mid model first, frontier on fallback. Must estimate cost split."
+  expected_includes:
+    - "cascade"
+    - "fallback"
+  difficulty: medium
+
+- id: vibe-pick-pushback
+  input: "Let's use Opus for our autocomplete feature."
+  expected_behavior: "Must push back. Must ask diagnostics (latency, volume, task complexity). Autocomplete is almost certainly a small-tier task on latency grounds."
+  difficulty: medium
+
+- id: benchmark-only-pushback
+  input: "GPT-5 is #1 on the latest LMSYS leaderboard, so we should use it for our PRD-drafting feature."
+  expected_behavior: "Must reject leaderboard as the decision basis. Must require the user's own eval set across candidates."
+  expected_includes:
+    - "eval"
+  difficulty: hard

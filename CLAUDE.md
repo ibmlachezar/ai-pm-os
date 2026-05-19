@@ -326,6 +326,11 @@ When I ask for...                              | Fire skill...
 "agent vs RAG"                                 | agent-architecture
 "how should we architect this"                 | agent-architecture
 "do we need to fine-tune"                      | agent-architecture
+"which model should we use"                    | model-selection
+"Opus or Sonnet or Haiku"                      | model-selection
+"GPT vs Claude vs Gemini"                      | model-selection
+"can we use a cheaper model"                   | model-selection
+"should we cascade models"                     | model-selection
 
 (More skills will be added as the repo grows. See `.claude/skills/`.)
 

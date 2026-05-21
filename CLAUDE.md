@@ -331,6 +331,11 @@ When I ask for...                              | Fire skill...
 "GPT vs Claude vs Gemini"                      | model-selection
 "can we use a cheaper model"                   | model-selection
 "should we cascade models"                     | model-selection
+"design a tool"                                | mcp-tool-design
+"review this tool definition"                  | mcp-tool-design
+"design the tools for"                         | mcp-tool-design
+"how should I structure this MCP server"       | mcp-tool-design
+"what tools does this feature need"            | mcp-tool-design
 
 (More skills will be added as the repo grows. See `.claude/skills/`.)
 

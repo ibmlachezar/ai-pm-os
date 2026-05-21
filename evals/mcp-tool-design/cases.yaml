@@ -1,0 +1,40 @@
+# Eval cases for the mcp-tool-design skill itself.
+# How to run: pass each input to /mcp-tool-design and verify the output against the expectations.
+
+- id: agentic-checkout-tool-set
+  input: "Design the tools for the agentic checkout workflow: parse mandate, validate mandate, authorize payment, confirm order. Voice and chat entry points."
+  expected_behavior: "Should propose 4-6 atomic tools (not one wrapper). Should require idempotency keys on authorize_payment and confirm_order. Should require explicit user confirmation before authorize_payment. Should split mandate validation from payment authorization. Should hand off tool-use eval cases to eval-design."
+  expected_includes:
+    - "idempotency"
+    - "confirmation"
+    - "do not use when"
+  difficulty: medium
+
+- id: review-bad-tool
+  input: "Review this tool definition: name=do_stuff, description=Handles things for the user, parameters input is a string, returns a string."
+  expected_behavior: "Must reject every component. Name is vague. Description gives the model nothing to reason with. Parameter is untyped. Return shape is unstructured. Must rewrite the entire tool."
+  difficulty: easy
+
+- id: missing-idempotency
+  input: "Design a tool that charges a user's card on file. Volume: hundreds of thousands per day. No idempotency yet."
+  expected_behavior: "Must require an idempotency_key parameter. Must explain the duplicate-charge failure mode. Must require user-confirmation pattern. Must propose prepare_charge + execute_charge split."
+  expected_includes:
+    - "idempotency_key"
+    - "duplicate"
+    - "confirmation"
+  difficulty: medium
+
+- id: too-many-tools
+  input: "I have 35 tools for my customer support agent. The agent keeps calling the wrong one. Help me design the tool set."
+  expected_behavior: "Must push back on tool count first. Must propose consolidating to about 10 tools. Must NOT just rename the existing 35."
+  expected_includes:
+    - "consolidate"
+    - "fewer"
+  difficulty: hard
+
+- id: model-facing-errors
+  input: "Review the error messages from our list_orders tool: returns 404 on not found, permission denied on unauthorized, server error on failure."
+  expected_behavior: "Must rewrite each error to explain what went wrong in a sentence and tell the model what to do next. Must call out that errors are part of the tool's interface."
+  expected_includes:
+    - "what to do next"
+  difficulty: medium
